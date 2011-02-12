@@ -1,0 +1,101 @@
+http://zone.ni.com/devzone/cda/tut/p/id/5696
+
+Object Hierarchy
+
+  Hierarchy                                 Path
+
+  example_events.tdms (File)                /
+   |
+   +-- Measured Data (Group)                /'Measured Data'
+   |     |
+   |     +-- Amplitude Sweep (Channel)      /'Measured Data'/'Amplitude Sweep'
+   |     +-- Phase Sweep (Channel)          /'Measured Data'/'Phase Sweep'
+   |
+   +-- Dr. T's Events (Group)               /'Dr. T''s Events'
+         |
+         +-- Time (Channel)                 /'Dr. T''s Events'/'Time'
+         +-- Description (Channel)          /'Dr. T''s Events'/'Description'
+
+  There are exactly 3 levels of objects in TDMS:
+   - File (every TDMS file must have one)
+   - Group (has many Channels, may have none)
+   - Channel (belongs to a Group)
+
+  Every object is identified by a string path.  The only thing that
+  identifies an object as being a File, Group, or Channel is the
+  number of Segments in the string path:
+  
+    Object Type      Example Path         Number of Path Segments
+    File             /                    0
+    Group            /'Group'             1
+    Channel          /'Group'/'Channel'   2
+ 
+
+File Structure
+
+  File is divided into Segments.
+  Each segment contains one or more Objects
+  Every Object has a string Path
+
+
+Segment
+
+  +-----------+------------+------------+----------------------------
+  |  Lead-in  |  Metadata  |  Raw Data  |  Lead-in (Next Segment) ...
+  +-----------+------------+------------+----------------------------
+
+  Lead-in
+    +---------+--------+---------+--------------------+--------------------+---
+    | 4: TDSm | 4: ToC | 4: Vers | 8: Next Seg Offset | 8: Raw Data Offset | Metadata ... 
+    +---------+--------+---------+--------------------+--------------------+---
+    00        04       08        0C                   14                   1C
+                                                                             
+
+    00-03  4 bytes: TDMS identifier (always "TDSm")
+    04-07  4 bytes: Table of contents (only first byte used)
+                    Flags to indicate what is in the segment
+    08-0B  4 bytes: TDMS version number (always 4713)
+    0C-13  8 bytes: Offset of the next segment (little endian).  Take the 
+                    absolute offset of the next byte after the lead-in and
+                    add it to this number to find the next segment.
+    14-1B  8 bytes: Offset of the raw data in this segment (little endian).  
+                    Also calculate it from next byte after the lead-in.
+
+    
+  Metadata
+    +----------+-------------+---------+-------------------+--------------+-
+    | 4: Count | 4: Path Len | n: Path | 4: Raw data index | 4: Num Props | 
+    +----------+-------------+---------+-------------------+--------------+- 
+    00         04            08
+  
+    4 bytes: Number of new/changed objects in this segment
+    
+    For each object in the segment:
+      4 bytes: Length of object's string path
+      n bytes: Object's string path
+      
+      Index block or markers:
+        If no raw data in the segment:
+          4 bytes: FF FF FF FF
+        Else if raw data index block exactly matches last segment:
+          4 bytes: 00 00 00 00
+        Else:
+          4 bytes: Length of raw data index block + 4
+          4 bytes: Data type of the raw data in this object 
+          4 bytes: Dimension of raw data array (only first byte used, always 1)
+          8 bytes: Number of values
+          8 bytes: Total size in bytes (?) -- may not be here
+           
+      Properties Block:      
+
+        4 bytes: Number of properties of this object
+
+        For each property:
+          4 bytes: Length of property name
+          n bytes: Property name
+          4 bytes: Data type of property value (only first byte used)
+          n bytes: Property value
+                     String is 4 bytes for length, then bytes of string
+                     Others are fixed number of bytes for value based on type
+
+  Raw Data

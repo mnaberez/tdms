@@ -1,0 +1,47 @@
+EXAMPLE.tdms
+  Contains 4 segments
+
+
+000000  54 44 53 6d  "TDSm" id tag
+000004  0E 00 00 00  0e is ToC flag, other 3 bytes unused
+000008  68 12 00 00  6812 is little endian for 0x1268 or 4713 (TDMS standard version).  Other two bytes unused.
+00000C  E3 88 20 00  
+000010  00 00 00 00  => 64-bit unsigned little endian 0x00000000002088E3 is the next segment offset
+000014  E3 08 00 00  
+000018  00 00 00 00  => 64-bit unsigned little endian 0x00000000000008E3 is the raw data offset
+ ( End of Lead-In )
+ (   00001C is the offset of the next byte after the lead-in )
+ (   Next segment offset = 00001C + 2088E3 = 2088FF )
+ (   Raw data offset     = 00001C + 0008E3 = 0008FF )     
+
+ ( Start of Metadata )
+00001C  08 00 00 00  => 32-bit unsigned little endian 0x00000008 is the number of 
+                        new/changed objects in this segment (8 objects)
+000020  11 00 00 00  => 32-bit unsigned little endian 0x00000011 is the length of
+                        the object's path string (11 bytes)
+ (Begin Path String)
+000024  2F 27 45 58  /'EX
+000028  41 4D 50 4C  AMPL
+00002C  45 27 2F 27  E'/'
+000030  54 69 6D 65  Time
+000034  27           '     
+ (Begin Length of Index)
+000034     14 00 00
+000038  0A 00 00    => 32-bit unsigned little endian 0x00000014 is the
+                       raw data index
+ (Begin Data Type)
+000038           0A
+00003C  00 00 00    => 32-bit unsigned little endian 0x0000000A is the
+                       data type (tdsTypeDoubleFloat)                       
+
+ (Begin Array Dimension)
+00003C           01
+000040  00 00 00     => 32-bit unsigned little endian 0x00000001 is the
+                        array dimension (always 1)
+ (Begin Number of Values)
+000040           00
+000044  04 00 00 00
+000048  04 00 00     => 64-bit unsigned little endian 0x0000000000000400 is the
+                        number of values (1024 values)
+ (Begin Total Size in Bytes)
+ 

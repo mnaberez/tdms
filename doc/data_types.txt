@@ -1,0 +1,23 @@
+Data Types
+
+Identifier 		Name     												Length (bytes)		Ruby					
+                                                                              
+0x00000000	  tdsTypeVoid											1									Nil						
+0x00000001	  tdsTypeI8												1									Integer				
+0x00000002		tdsTypeI16											2									Integer				
+0x00000003		tdsTypeI32											4									Integer				
+0x00000004		tdsTypeI64											8									Integer				
+0x00000005		tdsTypeU8												1									Integer				
+0x00000006		tdsTypeU16											2									Integer				
+0x00000007		tdsTypeU32											4									Integer				
+0x00000008		tdsTypeU64											8									Integer				
+0x00000009		tdsTypeSingleFloat						  4									Float					
+0x0000000A		tdsTypeDoubleFloat							8									Float					
+0x0000000B		tdsTypeExtendedFloat					  10								?							
+0x00000019		tdsTypeSingleFloatWithUnit			?									?							
+0x0000001A		tdsTypeDoubleFloatWithUnit			?									?							
+0x0000001B		tdsTypeExtendedFloatWithUnit		?									?							
+0x00000020		tdsTypeString										4 len + n chars		String				
+0x00000021		tdsTypeBoolean									1  								True, False		
+0x00000044		tdsTypeTimeStamp								16 (?)						DateTime			
+0xFFFFFFFF		tdsTypeDAQmxRawData							?									?							

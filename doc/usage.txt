@@ -1,0 +1,46 @@
+READING
+=======
+
+# display properties of a channel
+
+  group = segment.groups.find {|grp| grp.path == "/'EXAMPLE'" }
+  speed = group.channels.find {|ch| ch.path == "/'EXAMPLE'/'Time'" }
+  speed.properties.each_pair do |k,v|
+    puts k,v
+  end
+
+# loop through a channel
+
+  group = segment.groups.find {|grp| grp.path == "/'EXAMPLE'" }
+  speed = group.channels.find {|ch| ch.path == "/'EXAMPLE'/'Time'" }
+  speed.values.each do |v| 
+    puts v  #=> float
+  end
+
+# spreadsheet of two channels
+
+  group = segment.groups.find {|grp| grp.path == "/'EXAMPLE'" }
+
+  time  = group.channels.find { |ch| ch.path == "/'EXAMPLE'/'Time'" }
+  speed = group.channels.find { |ch| ch.path == "/'EXAMPLE'/'Speed'" }
+
+  max = [time.values.size, speed.values.size].max - 1
+  0.upto(max) do |i| 
+    puts "%f,%f" % (time.values[i], speed.values[i])
+  end
+
+
+WRITING
+=======
+
+tdms = Tdms::File.new("some filename")
+seg = tdms.segment.build
+
+group = seg.groups.build("foo")
+
+chan = group.channels.build("bar")
+chan.properties["Flux Capacitor"] = "On"
+channel.values << 1.02
+channel.values << 1.02
+
+seg.save
