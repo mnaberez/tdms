@@ -10,21 +10,21 @@ module Tdms
       end
     end
 
-    class Utf8String < Base
-      Id = 0x20
-      LengthInBytes = nil
-
-      def self.read_from_stream(tdms_file)
-        new(tdms_file.read_utf8_string)
-      end
-    end
-    
     class Int32 < Base
       Id = 0x03
       LengthInBytes = 4
       
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_i32)
+      end
+    end
+
+    class Uint8 < Base
+      Id = 0x05
+      LengthInBytes = 1
+      
+      def self.read_from_stream(tdms_file)
+        new(tdms_file.read_u8)
       end
     end
     
@@ -34,6 +34,24 @@ module Tdms
 
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_double)
+      end
+    end
+
+    class Utf8String < Base
+      Id = 0x20
+      LengthInBytes = nil
+
+      def self.read_from_stream(tdms_file)
+        new(tdms_file.read_utf8_string)
+      end
+    end
+
+    class Boolean < Base
+      Id = 0x21
+      LengthInBytes = 1
+      
+      def self.read_from_stream(tdms_file)
+        new(tdms_file.read_bool)
       end
     end
 
@@ -47,9 +65,11 @@ module Tdms
     end
 
     DataTypesById = {
-      Utf8String::Id => Utf8String,
       Int32::Id      => Int32,
+      Uint8::Id      => Uint8,
       Double::Id     => Double,
+      Utf8String::Id => Utf8String,
+      Boolean::Id    => Boolean,
       Timestamp::Id  => Timestamp
     }
 

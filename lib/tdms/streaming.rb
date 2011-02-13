@@ -12,6 +12,14 @@ module Tdms
       Tdms::Property.new(name, data)
     end
 
+    def read_bool
+      read(1) == "\001" ? true : false
+    end
+
+    def read_u8
+      read(1).unpack("C")[0]
+    end
+
     def read_u32
       read(4).unpack("V")[0]
     end
