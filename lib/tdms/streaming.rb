@@ -28,6 +28,10 @@ module Tdms
       read_u32 # XXX
     end
 
+    def read_single
+      read(4).unpack("e")[0]
+    end
+
     def read_double
       read(8).unpack("E")[0]
     end
