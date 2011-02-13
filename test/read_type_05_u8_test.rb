@@ -32,17 +32,18 @@ class ReadType05Uint8Test < Test::Unit::TestCase
     assert_equal expected, chan.values.to_a
   end
   
-  def test_reads_one_boolean_channel_across_two_segments
-    filename = fixture_filename("type_05_uint8_two_segments")
+  def test_reads_one_boolean_channel_across_three_segments
+    filename = fixture_filename("type_05_uint8_three_segments")
     doc = Tdms::File.parse(filename)
   
-    assert_equal 2, doc.segments.size
+    assert_equal 3, doc.segments.size
     assert_equal 1, doc.segments[0].objects.size
     assert_equal 1, doc.segments[1].objects.size
+    assert_equal 1, doc.segments[2].objects.size
 
     chan = doc.channels.find {|ch| ch.path == "/'uint8_group'/'uint8_channel'" }
-    assert_equal 8, chan.values.size
-    expected = [1, 0, 1, 0, 1, 0, 1, 0]
+    assert_equal 12, chan.values.size
+    expected = [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
     assert_equal expected, chan.values.to_a
   end
 
