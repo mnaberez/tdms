@@ -20,6 +20,8 @@ module Tdms
     def ==(other)
       if other.is_a?(String)
         self.to_s == other
+      elsif other.is_a?(Path)
+        self.dump == other.dump
       else
         super
       end

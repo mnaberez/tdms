@@ -13,11 +13,10 @@ module Tdms
 
     def parse_segments
       @segments = []
-      prev_segment = nil
 
       until file.eof? 
         segment = Tdms::Segment.new
-        segment.prev_segment = prev_segment
+        segment.prev_segment = @segments[-1]
         @segments << segment
 
         lead_in = @file.read(0x1C)
@@ -38,12 +37,25 @@ module Tdms
           path = Tdms::Path.new(:path => @file.read_utf8_string)
           index_block_len = @file.read_u32
 
+          chan = nil
           num_props = 0
 
           if index_block_len == 0xFFFFFFFF
-            #puts "  no index block"
+            # no index block"
+
           elsif index_block_len == 0x000000
-            #puts "  index block is same as last segment"
+            # index block is same as this channel in the last segment
+            prev_chan = segment.prev_segment.objects.find {|o| o.path == path }
+
+            chan = Tdms::Channel.new
+            chan.file = @file
+            chan.raw_data_pos = raw_data_pos_obj
+            chan.path         = prev_chan.path
+            chan.data_type_id = prev_chan.data_type_id
+            chan.dimension    = prev_chan.dimension
+            chan.num_values   = prev_chan.num_values
+
+            segment.objects << chan
           else
             # XXX why does the number of properties seem to be
             # included in the raw data index block size?
@@ -54,11 +66,10 @@ module Tdms
             chan = Tdms::Channel.new
             chan.file = @file
             chan.raw_data_pos = raw_data_pos_obj
-            chan.path = path
+            chan.path         = path
             chan.data_type_id = decoded[0] # first 4 bytes u32
             chan.dimension    = decoded[1] # next 4 bytes u32
             chan.num_values   = decoded[2] # next 8 bytes u64
-            segment.objects << chan
 
             data_type = Tdms::DataType.find_by_id(chan.data_type_id)
             fixed_length = data_type::LengthInBytes
@@ -71,11 +82,12 @@ module Tdms
               # end with the total length of the raw data in u64
               index_block[-8,8].unpack("Q")[0]
             end
+
+            segment.objects << chan
           end
 
+          # TODO store properties
           num_props = @file.read_u32
-
-          newline = false
           1.upto(num_props) do |n|
             prop = @file.read_property
           end
