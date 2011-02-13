@@ -6,6 +6,7 @@ class ReadType20StringTest < Test::Unit::TestCase
 
     assert_equal 1, doc.segments.size
     assert_equal 1, doc.segments[0].objects.size
+    assert_equal Tdms::DataType::Utf8String::Id, doc.segments[0].objects[0].data_type_id
     
     chan = doc.channels.find {|ch| ch.path == "/'string_group'/'string_channel'" }
     assert_equal 10, chan.values.size
@@ -19,6 +20,8 @@ class ReadType20StringTest < Test::Unit::TestCase
 
     assert_equal 1, doc.segments.size
     assert_equal 2, doc.segments[0].objects.size
+    assert_equal Tdms::DataType::Utf8String::Id, doc.segments[0].objects[0].data_type_id
+    assert_equal Tdms::DataType::Utf8String::Id, doc.segments[0].objects[1].data_type_id
 
     chan = doc.channels.find {|ch| ch.path == "/'string_group'/'string_channel_a'" }
     assert_equal 10, chan.values.size
@@ -39,6 +42,9 @@ class ReadType20StringTest < Test::Unit::TestCase
     assert_equal 1, doc.segments[0].objects.size
     assert_equal 1, doc.segments[1].objects.size
     assert_equal 1, doc.segments[2].objects.size
+    assert_equal Tdms::DataType::Utf8String::Id, doc.segments[0].objects[0].data_type_id
+    assert_equal Tdms::DataType::Utf8String::Id, doc.segments[1].objects[0].data_type_id
+    assert_equal Tdms::DataType::Utf8String::Id, doc.segments[2].objects[0].data_type_id
 
     chan = doc.channels.find {|ch| ch.path == "/'string_group'/'string_channel'" }
     assert_equal 30, chan.values.size
