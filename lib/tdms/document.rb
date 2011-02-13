@@ -37,11 +37,8 @@ module Tdms
           path = Tdms::Path.new(:path => @file.read_utf8_string)
           index_block_len = @file.read_u32
 
-          chan = nil
-          num_props = 0
-
           if index_block_len == 0xFFFFFFFF
-            # no index block"
+            # no index block
 
           elsif index_block_len == 0x000000
             # index block is same as this channel in the last segment
