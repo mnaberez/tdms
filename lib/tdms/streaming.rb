@@ -28,6 +28,11 @@ module Tdms
       read(4).unpack("V")[0]
     end
 
+    def read_u64
+      lo_hi = read(8).unpack("VV")
+      lo_hi[0] + (lo_hi[1] << 32)
+    end
+
     def read_i32
       read_u32 # XXX
     end
