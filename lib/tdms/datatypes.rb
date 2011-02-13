@@ -28,6 +28,15 @@ module Tdms
       end
     end
 
+    class Uint16 < Base
+      Id = 0x06
+      LengthInBytes = 2
+      
+      def self.read_from_stream(tdms_file)
+        new(tdms_file.read_u16)
+      end
+    end
+
     class Single < Base
       Id = 0x09
       LengthInBytes = 4
@@ -76,6 +85,7 @@ module Tdms
     DataTypesById = {
       Int32::Id      => Int32,
       Uint8::Id      => Uint8,
+      Uint16::Id     => Uint16,
       Single::Id     => Single,
       Double::Id     => Double,
       Utf8String::Id => Utf8String,

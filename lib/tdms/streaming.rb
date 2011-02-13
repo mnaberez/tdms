@@ -20,6 +20,10 @@ module Tdms
       read(1).unpack("C")[0]
     end
 
+    def read_u16
+      read(2).unpack("v")[0]
+    end
+
     def read_u32
       read(4).unpack("V")[0]
     end
