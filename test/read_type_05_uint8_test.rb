@@ -1,6 +1,6 @@
 class ReadType05Uint8Test < Test::Unit::TestCase
   
-  def test_reads_one_boolean_channel_in_one_segment
+  def test_reads_one_uint8_channel_in_one_segment
     filename = fixture_filename("type_05_uint8_one_segment")
     doc = Tdms::File.parse(filename)
   
@@ -15,7 +15,7 @@ class ReadType05Uint8Test < Test::Unit::TestCase
     assert_equal expected, chan.values.to_a
   end
   
-  def test_reads_two_boolean_channels_in_one_segment
+  def test_reads_two_uint8_channels_in_one_segment
     filename = fixture_filename("type_05_uint8_two_channels_one_segment")
     doc = Tdms::File.parse(filename)
   
@@ -35,7 +35,7 @@ class ReadType05Uint8Test < Test::Unit::TestCase
     assert_equal expected, chan.values.to_a
   end
   
-  def test_reads_one_boolean_channel_across_three_segments
+  def test_reads_one_uint8_channel_across_three_segments
     filename = fixture_filename("type_05_uint8_three_segments")
     doc = Tdms::File.parse(filename)
   
