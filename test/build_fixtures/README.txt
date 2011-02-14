@@ -6,6 +6,11 @@ tdsTypeDoubleFloatWithUnit, tdsTypeExtendedTypeWithUnit) with the
 channel data type as floats without units.  
 These fixtures were made by hand:
 
+  tdsTypeSingleFloatWithUnit
+    Fixtures type_19_*.tdms are the same as type_09_*.tdms but the
+    channel data type was edited from tdsTypeSingleFloat (0x09) to
+    tdsTypeSingleFloatWithUnit (0x19).
+
   tdsTypeDoubleFloatWithUnit
    Fixtures type_1a_*.tdms are the same as type_0a_*.tdms but the
    channel data type was edited from tdsTypeDoubleFloat (0x0A) to
