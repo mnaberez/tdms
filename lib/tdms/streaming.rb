@@ -1,5 +1,4 @@
-require 'rubygems'
-require 'active_support/all'
+require 'date'
 
 module Tdms
   
@@ -51,11 +50,11 @@ module Tdms
     end
 
     def read_timestamp
-      seconds_since_labview_epoch  = read(8).unpack("Q")[0]
-      positive_fractions_of_second = read(8).unpack("Q")[0] # ignored
-      
+      positive_fractions_of_second = read_u64 # ignored
+      seconds_since_labview_epoch  = read(8).unpack("q")[0] # TODO little endian not native
+
       labview_epoch = ::DateTime.new(1904, 1, 1)
-      labview_epoch.advance(:seconds => seconds_since_labview_epoch)
+      labview_epoch + Rational(seconds_since_labview_epoch, 86400)
     end
   end
 
