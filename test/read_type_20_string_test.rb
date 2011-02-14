@@ -34,7 +34,7 @@ class ReadType20StringTest < Test::Unit::TestCase
     assert_equal expected, chan.values.to_a
   end
   
-  def test_reads_one_string_channel_across_two_segments
+  def test_reads_one_string_channel_across_three_segments
     filename = fixture_filename("type_20_string_three_segments")
     doc = Tdms::File.parse(filename)
 

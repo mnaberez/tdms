@@ -36,7 +36,7 @@ class ReadType44TimestampTest < Test::Unit::TestCase
     assert_equal expected, chan.values.map { |dt| dt.strftime("%Y-%m-%d %H:%M:%S") }
   end
   
-  def test_reads_one_timestamp_channel_across_two_segments
+  def test_reads_one_timestamp_channel_across_three_segments
     filename = fixture_filename("type_44_timestamp_three_segments")
     doc = Tdms::File.parse(filename)
 
