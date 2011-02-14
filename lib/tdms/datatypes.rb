@@ -73,6 +73,15 @@ module Tdms
       end
     end
 
+    class DoubleWithUnit < Base
+      Id = 0x1A
+      LengthInBytes = 8
+
+      def self.read_from_stream(tdms_file)
+        new(tdms_file.read_double)
+      end
+    end
+
     class Utf8String < Base
       Id = 0x20
       LengthInBytes = nil
@@ -101,16 +110,17 @@ module Tdms
     end
 
     DataTypesById = {
-      Int32::Id      => Int32,
-      Uint8::Id      => Uint8,
-      Uint16::Id     => Uint16,
-      Uint32::Id     => Uint32,
-      Uint64::Id     => Uint64,
-      Single::Id     => Single,
-      Double::Id     => Double,
-      Utf8String::Id => Utf8String,
-      Boolean::Id    => Boolean,
-      Timestamp::Id  => Timestamp
+      Int32::Id          => Int32,
+      Uint8::Id          => Uint8,
+      Uint16::Id         => Uint16,
+      Uint32::Id         => Uint32,
+      Uint64::Id         => Uint64,
+      Single::Id         => Single,
+      Double::Id         => Double,
+      DoubleWithUnit::Id => DoubleWithUnit,
+      Utf8String::Id     => Utf8String,
+      Boolean::Id        => Boolean,
+      Timestamp::Id      => Timestamp
     }
 
     def find_by_id(id_byte)

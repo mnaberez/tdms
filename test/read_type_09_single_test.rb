@@ -35,7 +35,7 @@ class ReadType09SingleTest < Test::Unit::TestCase
     assert_equal expected, chan.values.map { |float| "%0.2f" % float }
   end
   
-  def test_reads_one_double_channel_across_three_segments
+  def test_reads_one_single_channel_across_three_segments
     filename = fixture_filename("type_09_single_three_segments")
     doc = Tdms::File.parse(filename)
   
