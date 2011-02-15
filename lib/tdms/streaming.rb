@@ -32,6 +32,10 @@ module Tdms
       lo_hi[0] + (lo_hi[1] << 32)
     end
 
+    def read_i8
+      read(2).unpack("c")[0]
+    end
+
     def read_i16
       read(2).unpack("s")[0] # TODO little endian not native
     end
