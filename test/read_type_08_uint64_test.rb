@@ -11,7 +11,7 @@ class ReadType08Uint64Test < Test::Unit::TestCase
     chan = doc.channels.find {|ch| ch.path == "/'uint64_group'/'uint64_channel'" }
     assert_equal 5, chan.values.size
     
-    expected = [0, 1, 4294967295, 9223372036854775807, 18446744073709551615]
+    expected = [0, 1, 4_294_967_295, 9_223_372_036_854_775_807, 18_446_744_073_709_551_615]
     assert_equal expected, chan.values.to_a
   end
   
@@ -26,12 +26,12 @@ class ReadType08Uint64Test < Test::Unit::TestCase
   
     chan = doc.channels.find {|ch| ch.path == "/'uint64_group'/'uint64_channel_a'" }
     assert_equal 5, chan.values.size
-    expected = [0, 1, 4294967295, 9223372036854775807, 18446744073709551615]
+    expected = [0, 1, 4_294_967_295, 9_223_372_036_854_775_807, 18_446_744_073_709_551_615]
     assert_equal expected, chan.values.to_a
       
     chan = doc.channels.find {|ch| ch.path == "/'uint64_group'/'uint64_channel_b'" }
     assert_equal 5, chan.values.size
-    expected = [18446744073709551615, 9223372036854775807, 4294967295, 1, 0]
+    expected = [18_446_744_073_709_551_615, 9_223_372_036_854_775_807, 4_294_967_295, 1, 0]
     assert_equal expected, chan.values.to_a
   end
   
@@ -49,9 +49,9 @@ class ReadType08Uint64Test < Test::Unit::TestCase
   
     chan = doc.channels.find {|ch| ch.path == "/'uint64_group'/'uint64_channel'" }
     assert_equal 15, chan.values.size
-    expected = [0, 1, 4294967295, 9223372036854775807, 18446744073709551615,
-                0, 1, 4294967295, 9223372036854775807, 18446744073709551615,
-                0, 1, 4294967295, 9223372036854775807, 18446744073709551615]
+    expected = [0, 1, 4_294_967_295, 9_223_372_036_854_775_807, 18_446_744_073_709_551_615,
+                0, 1, 4_294_967_295, 9_223_372_036_854_775_807, 18_446_744_073_709_551_615,
+                0, 1, 4_294_967_295, 9_223_372_036_854_775_807, 18_446_744_073_709_551_615]
     assert_equal expected, chan.values.to_a
   end
 
