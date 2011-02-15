@@ -9,9 +9,9 @@ class ReadType07Uint32Test < Test::Unit::TestCase
     assert_equal Tdms::DataType::Uint32::Id, doc.segments[0].objects[0].data_type_id
     
     chan = doc.channels.find {|ch| ch.path == "/'uint32_group'/'uint32_channel'" }
-    assert_equal 4, chan.values.size
+    assert_equal 5, chan.values.size
     
-    expected = [0, 1, 2, 3]
+    expected = [0, 1, 1_073_741_823, 2_147_483_647, 4_294_967_295]
     assert_equal expected, chan.values.to_a
   end
   
@@ -23,15 +23,15 @@ class ReadType07Uint32Test < Test::Unit::TestCase
     assert_equal 2, doc.segments[0].objects.size
     assert_equal Tdms::DataType::Uint32::Id, doc.segments[0].objects[0].data_type_id
     assert_equal Tdms::DataType::Uint32::Id, doc.segments[0].objects[1].data_type_id
-
+  
     chan = doc.channels.find {|ch| ch.path == "/'uint32_group'/'uint32_channel_a'" }
-    assert_equal 4, chan.values.size
-    expected = [0, 1, 2, 3]
+    assert_equal 5, chan.values.size
+    expected = [0, 1, 1_073_741_823, 2_147_483_647, 4_294_967_295]
     assert_equal expected, chan.values.to_a
       
     chan = doc.channels.find {|ch| ch.path == "/'uint32_group'/'uint32_channel_b'" }
-    assert_equal 4, chan.values.size
-    expected = [3, 2, 1, 0]
+    assert_equal 5, chan.values.size
+    expected = [4_294_967_295, 2_147_483_647, 1_073_741_823, 1, 0]
     assert_equal expected, chan.values.to_a
   end
   
@@ -48,8 +48,10 @@ class ReadType07Uint32Test < Test::Unit::TestCase
     assert_equal Tdms::DataType::Uint32::Id, doc.segments[2].objects[0].data_type_id
   
     chan = doc.channels.find {|ch| ch.path == "/'uint32_group'/'uint32_channel'" }
-    assert_equal 12, chan.values.size
-    expected = [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]
+    assert_equal 15, chan.values.size
+    expected = [0, 1, 1_073_741_823, 2_147_483_647, 4_294_967_295,
+                0, 1, 1_073_741_823, 2_147_483_647, 4_294_967_295,
+                0, 1, 1_073_741_823, 2_147_483_647, 4_294_967_295]
     assert_equal expected, chan.values.to_a
   end
 
