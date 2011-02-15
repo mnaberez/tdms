@@ -44,6 +44,10 @@ module Tdms
       read(4).unpack("l")[0] # TODO little endian not native
     end
 
+    def read_i64
+      read(8).unpack("q")[0] # TODO little endian not native
+    end
+
     def read_single
       read(4).unpack("e")[0]
     end
