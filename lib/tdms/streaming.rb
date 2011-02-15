@@ -33,7 +33,7 @@ module Tdms
     end
 
     def read_i32
-      read_u32 # XXX
+      read(4).unpack("l")[0] # TODO little endian not native
     end
 
     def read_single
