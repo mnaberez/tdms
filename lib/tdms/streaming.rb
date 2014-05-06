@@ -12,7 +12,7 @@ module Tdms
     end
 
     def read_bool
-      read(1) == "\001" ? true : false
+      read(1) == "\001"
     end
 
     def read_u8
