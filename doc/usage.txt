@@ -13,7 +13,7 @@ READING
 
   group = segment.groups.find {|grp| grp.path == "/'EXAMPLE'" }
   speed = group.channels.find {|ch| ch.path == "/'EXAMPLE'/'Time'" }
-  speed.values.each do |v| 
+  speed.values.each do |v|
     puts v  #=> float
   end
 
@@ -25,7 +25,7 @@ READING
   speed = group.channels.find { |ch| ch.path == "/'EXAMPLE'/'Speed'" }
 
   max = [time.values.size, speed.values.size].max - 1
-  0.upto(max) do |i| 
+  0.upto(max) do |i|
     puts "%f,%f" % (time.values[i], speed.values[i])
   end
 

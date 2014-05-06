@@ -1,7 +1,7 @@
 Data Types
 
 Identifier    Name                            Length (bytes)    Ruby
-                                                                              
+
 0x00000000    tdsTypeVoid                     1                 Nil
 0x00000001    tdsTypeI8                       1                 Integer
 0x00000002    tdsTypeI16                      2                 Integer

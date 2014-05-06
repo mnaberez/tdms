@@ -1,12 +1,12 @@
 require 'date'
 
 module Tdms
-  
+
   module Streaming
     def read_property
       name    = read_utf8_string
       type_id = read_u32
-      
+
       data = Tdms::DataType.find_by_id(type_id).read_from_stream(self)
       Tdms::Property.new(name, data)
     end
@@ -72,8 +72,8 @@ module Tdms
 
   class File < ::File
     include Streaming
-    
-    def self.parse(filename) 
+
+    def self.parse(filename)
       f = self.open(filename, "rb")
       Document.new(f)
     end

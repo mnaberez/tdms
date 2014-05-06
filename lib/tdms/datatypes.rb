@@ -4,7 +4,7 @@ module Tdms
 
     class Base
       attr_accessor :value
-      
+
       def initialize(value=nil)
         @value = value
       end
@@ -13,7 +13,7 @@ module Tdms
     class Int8 < Base
       Id = 0x01
       LengthInBytes = 1
-      
+
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_i8)
       end
@@ -22,7 +22,7 @@ module Tdms
     class Int16 < Base
       Id = 0x02
       LengthInBytes = 2
-      
+
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_i16)
       end
@@ -31,7 +31,7 @@ module Tdms
     class Int32 < Base
       Id = 0x03
       LengthInBytes = 4
-      
+
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_i32)
       end
@@ -49,7 +49,7 @@ module Tdms
     class Uint8 < Base
       Id = 0x05
       LengthInBytes = 1
-      
+
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_u8)
       end
@@ -58,7 +58,7 @@ module Tdms
     class Uint16 < Base
       Id = 0x06
       LengthInBytes = 2
-      
+
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_u16)
       end
@@ -67,7 +67,7 @@ module Tdms
     class Uint32 < Base
       Id = 0x07
       LengthInBytes = 4
-      
+
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_u32)
       end
@@ -76,7 +76,7 @@ module Tdms
     class Uint64 < Base
       Id = 0x08
       LengthInBytes = 8
-      
+
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_u64)
       end
@@ -90,7 +90,7 @@ module Tdms
         new(tdms_file.read_single)
       end
     end
-    
+
     class Double < Base
       Id = 0x0A
       LengthInBytes = 8
@@ -130,7 +130,7 @@ module Tdms
     class Boolean < Base
       Id = 0x21
       LengthInBytes = 1
-      
+
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_bool)
       end
@@ -139,7 +139,7 @@ module Tdms
     class Timestamp < Base
       Id = 0x44
       LengthInBytes = 16
-      
+
       def self.read_from_stream(tdms_file)
         new(tdms_file.read_timestamp)
       end

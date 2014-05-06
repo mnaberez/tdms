@@ -2,7 +2,7 @@ module Tdms
 
   class Document
     attr_reader :segments, :channels, :file
-    
+
     def initialize(file)
       @file = file
       parse_segments
@@ -14,7 +14,7 @@ module Tdms
     def parse_segments
       @segments = []
 
-      until file.eof? 
+      until file.eof?
         segment = Tdms::Segment.new
         segment.prev_segment = @segments[-1]
         @segments << segment
@@ -71,7 +71,7 @@ module Tdms
             data_type = Tdms::DataType.find_by_id(chan.data_type_id)
             fixed_length = data_type::LengthInBytes
 
-            raw_data_pos_obj += if fixed_length 
+            raw_data_pos_obj += if fixed_length
               chan.num_values * fixed_length
             else
               # if the values are variable length (strings only) then
@@ -91,16 +91,16 @@ module Tdms
         end
 
         @file.seek next_seg_pos
-      end 
+      end
 
     end
 
     def build_aggregates
       @channels = []
-    
+
       channels_by_path = {}
       segments.each do |segment|
-        segment.objects.select { |o| o.path.channel? }.each do |ch| 
+        segment.objects.select { |o| o.path.channel? }.each do |ch|
           (channels_by_path[ch.path.to_s] ||= []) << ch
         end
       end

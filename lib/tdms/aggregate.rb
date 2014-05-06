@@ -1,5 +1,5 @@
 module Tdms
-  
+
   class AggregateChannel
     def initialize(channels=[])
       @channels = channels
@@ -24,7 +24,7 @@ module Tdms
 
   class AggregateChannelEnumerator
     include Enumerable
-    
+
     def initialize(channels)
       @channels = channels
       @offsets  = []
@@ -48,7 +48,7 @@ module Tdms
 
     def [](i)
       if (i < 0) || (i >= size)
-        raise RangeError, "Channel %s has a range of 0 to %d, got invalid index: %d" % 
+        raise RangeError, "Channel %s has a range of 0 to %d, got invalid index: %d" %
                           [@channels[0].path, size - 1, i]
       end
 
@@ -63,9 +63,9 @@ module Tdms
           j -= 1
         end
       end
-      
+
       channel.values[i - offset]
     end
   end
-  
+
 end

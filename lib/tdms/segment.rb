@@ -8,5 +8,5 @@ module Tdms
       @objects = []
     end
   end
-  
+
 end
