@@ -22,6 +22,12 @@ read the example TDMS file that comes with NI DIAdem.
  - Segments with big endian data are not yet supported.
  - Writing TDMS files is not yet supported.
 
+## Fork
+
+Aaron Ten Clay has a [fork](https://github.com/aarontc/ruby_tdms) of this
+library that claims to support the segment types above, along with reading
+from streams instead of files, and other features.  
+
 ## Contributors
 
 [Mike Naberezny](http://github.com/mnaberez) is the author of TDMS for
