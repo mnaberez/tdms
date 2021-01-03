@@ -1,10 +1,10 @@
 Gem::Specification.new do |gem|
   gem.name          = "tdms"
-  gem.version       = "0.1.0"
+  gem.version       = "1.0.0"
   gem.summary       = "Ruby library to read files in NI TDMS format"
   gem.description   = gem.summary
 
-  gem.required_ruby_version = '>= 1.9.3'
+  gem.required_ruby_version = '>= 2.0.0'
   gem.license       = "BSD"
 
   gem.authors       = ["Mike Naberezny"]
