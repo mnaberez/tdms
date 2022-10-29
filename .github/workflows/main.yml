@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
 
     strategy:
       fail-fast: false
@@ -12,7 +12,7 @@ jobs:
         ruby-version: [2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Set up Ruby ${{ matrix.ruby-version }}
       uses: ruby/setup-ruby@v1
